@@ -1,0 +1,31 @@
+# Ignore node_modules, akan di-install dalam Docker
+node_modules/
+npm-debug.log
+yarn-error.log
+package-lock.json
+
+# Ignore local environment files
+.env
+.env.dev
+.env.prod
+
+# Ignore logs
+logs/
+*.log
+
+# Ignore Docker related files
+docker-compose.override.yml
+postgres-data/
+
+# Prisma related
+prisma/migrations
+prisma/node_modules
+
+# Ignore build artifacts
+dist/
+coverage/
+
+# Ignore system files
+.DS_Store
+.vscode/
+*.swp
