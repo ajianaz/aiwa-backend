@@ -1,9 +1,14 @@
-const organizationRepository = require('../repositories/organizationRepository')
+const BaseService = require('./BaseService')
+const OrganizationRepository = require('../repositories/OrganizationRepository')
 
-exports.getAllOrganizations = async () => {
-  return await organizationRepository.getAllOrganizations()
+class OrganizationService extends BaseService {
+  constructor() {
+    super(OrganizationRepository)
+  }
+
+  async findByOwnerId(ownerId) {
+    return await this.repository.findByOwnerId(ownerId)
+  }
 }
 
-exports.createOrganization = async (data) => {
-  return await organizationRepository.createOrganization(data)
-}
+module.exports = new OrganizationService()

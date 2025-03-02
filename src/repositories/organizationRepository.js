@@ -1,10 +1,14 @@
 const { PrismaClient } = require('@prisma/client')
+const BaseRepository = require('./BaseRepository')
+
 const prisma = new PrismaClient()
 
-exports.getAllOrganizations = async () => {
-  return await prisma.organization.findMany()
+class OrganizationRepository extends BaseRepository {
+  constructor() {
+    super(prisma.organization)
+  }
+
+  // Tambahkan method spesifik untuk Organization jika diperlukan
 }
 
-exports.createOrganization = async (data) => {
-  return await prisma.organization.create({ data })
-}
+module.exports = new OrganizationRepository()
