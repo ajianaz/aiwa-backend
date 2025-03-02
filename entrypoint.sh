@@ -8,15 +8,13 @@ until pg_isready -h db -p 5432 -U ${DB_USERNAME}; do
 done
 echo "✅ Database is ready!"
 
-# Jalankan Prisma Generate di semua mode
+# **1️⃣ Generate Prisma Client untuk Dev & Prod**
 echo "🔧 Running Prisma Generate..."
-npx prisma generate
+npx prisma generate || echo "⚠️ Warning: Prisma Generate failed"
 
-# Jalankan migrasi hanya jika NODE_ENV=production
-if [ "$NODE_ENV" = "production" ]; then
-  echo "📦 Running Prisma Migrate Deploy..."
-  npx prisma migrate deploy
-fi
+# **2️⃣ Jalankan Migrate Deploy (Hanya Jika Ada Perubahan)**
+echo "📦 Running Prisma Migrate Deploy..."
+npx prisma migrate deploy || echo "⚠️ Warning: Prisma Migrate failed"
 
 echo "🟢 Starting Application..."
 exec "$@"
