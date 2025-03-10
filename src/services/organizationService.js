@@ -6,6 +6,10 @@ class OrganizationService extends BaseService {
     super(OrganizationRepository)
   }
 
+  async getAllDevices() {
+    return await DeviceRepository.getAll()
+  }
+
   async findByOwnerId(ownerId) {
     return await this.repository.findByOwnerId(ownerId)
   }
