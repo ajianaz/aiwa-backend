@@ -16,10 +16,19 @@ class BaseRepository {
   }
 
   async update(id, data) {
-    return await this.model.update({ where: { id }, data })
+    const existing = await this.getById(id)
+    if (!existing) throw new Error(`Record with ID ${id} not found`)
+
+    return await this.model.update({
+      where: { id },
+      data
+    })
   }
 
   async delete(id) {
+    const existing = await this.getById(id)
+    if (!existing) throw new Error(`Record with ID ${id} not found`)
+
     return await this.model.delete({ where: { id } })
   }
 }

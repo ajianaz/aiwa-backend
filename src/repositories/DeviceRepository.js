@@ -5,10 +5,10 @@ const prisma = new PrismaClient()
 
 class DeviceRepository extends BaseRepository {
   constructor() {
-    super(prisma.device)
+    super(prisma.device) // Pastikan model yang benar dipakai
   }
 
-  // Contoh method tambahan spesifik untuk Device
+  // Method tambahan untuk mencari device berdasarkan Organization ID
   async findByOrganizationId(organizationId) {
     return await this.model.findMany({
       where: { organization_id: organizationId }

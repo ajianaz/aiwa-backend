@@ -4,15 +4,11 @@ const DeviceRepository = require('../repositories/DeviceRepository')
 class DeviceService extends BaseService {
   constructor() {
     super(DeviceRepository)
-  }
-
-  async getAllDevices() {
-    return await DeviceRepository.getAll()
+    this.deviceRepository = DeviceRepository
   }
 
   async findByOrganizationId(organizationId) {
-    return await this.repository.findByOrganizationId(organizationId)
+    return await this.deviceRepository.findByOrganizationId(organizationId)
   }
 }
-
 module.exports = new DeviceService()

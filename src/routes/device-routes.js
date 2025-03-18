@@ -1,9 +1,15 @@
 const DeviceController = require('../controllers/DeviceController')
 
 async function deviceRoutes(fastify, options) {
-  fastify.get('/devices', DeviceController.getAll)
+  fastify.get('/', DeviceController.getAllDevices)
+  fastify.get('/:deviceId', DeviceController.getDeviceById)
+  fastify.post('/', DeviceController.createDevice)
+  fastify.put('/:deviceId', DeviceController.updateDevice)
+  fastify.delete('/:deviceId', DeviceController.deleteDevice)
+
+
   fastify.get(
-    '/devices/organization/:organizationId',
+    '/organization/:organizationId',
     DeviceController.findByOrganizationId
   )
 }
