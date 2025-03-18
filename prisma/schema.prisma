@@ -8,20 +8,20 @@ datasource db {
 }
 
 model Organization {
-  organization_id String   @id @default(uuid()) @db.Uuid
-  name            String   @db.VarChar(255)
-  owner_id        String   @db.Uuid
-  address         String?  @db.VarChar(255)
-  contact_info    String?  @db.VarChar(255)
-  created_at      DateTime @default(now())
-  updated_at      DateTime @updatedAt
+  id           String   @id @default(uuid()) @db.Uuid
+  name         String   @db.VarChar(255)
+  owner_id     String   @db.Uuid
+  address      String?  @db.VarChar(255)
+  contact_info String?  @db.VarChar(255)
+  created_at   DateTime @default(now())
+  updated_at   DateTime @updatedAt
 
-  owner   User     @relation(name: "OrganizationOwner", fields: [owner_id], references: [user_id])
+  owner   User     @relation(name: "OrganizationOwner", fields: [owner_id], references: [id])
   devices Device[]
 }
 
 model User {
-  user_id     String   @id @default(uuid()) @db.Uuid
+  id          String   @id @default(uuid()) @db.Uuid
   keycloak_id String   @unique @db.VarChar(255)
   name        String   @db.VarChar(255)
   email       String   @unique @db.VarChar(255)
@@ -47,16 +47,16 @@ model Device {
   created_at        DateTime @default(now())
   updated_at        DateTime @updatedAt
 
-  organization     Organization             @relation(fields: [organization_id], references: [organization_id])
+  organization     Organization             @relation(fields: [organization_id], references: [id])
   agentAssignments DeviceAgentAssignments[]
 }
 
 model DeviceAgentAssignments {
-  assignment_id String   @id @default(uuid()) @db.Uuid
-  device_id     String   @db.Uuid
-  agent_id      String   @db.Uuid
-  assigned_at   DateTime @default(now())
+  id          String   @id @default(uuid()) @db.Uuid
+  device_id   String   @db.Uuid
+  agent_id    String   @db.Uuid
+  assigned_at DateTime @default(now())
 
   device Device @relation(fields: [device_id], references: [id])
-  agent  User   @relation(fields: [agent_id], references: [user_id])
+  agent  User   @relation(fields: [agent_id], references: [id])
 }
